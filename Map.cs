@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace U4DonkeyKong
+namespace Donkey_Kong
 {
     class Map
     {
@@ -20,9 +20,11 @@ namespace U4DonkeyKong
             mainWindow = new Window();
             drawMap();
         }
-        private void drawMap()
+        public void drawMap()
         {
+            darwLadders();
             drawBars();
+            
         }
         public Map(Canvas c, Window w)
         {
@@ -35,6 +37,7 @@ namespace U4DonkeyKong
             topBar.Width = 650;
             topBar.Height = 20;
             topBar.Fill = Brushes.Red;
+            
             Canvas.SetTop(topBar, 75);
             Canvas.SetLeft(topBar, 0);
             canvas.Children.Add(topBar);
@@ -52,7 +55,7 @@ namespace U4DonkeyKong
             bar2.Width = 600;
             bar2.Height = 20;
             bar2.Fill = Brushes.Red;
-            bar2.RenderTransform = new RotateTransform(4);
+            bar2.RenderTransform = new RotateTransform(3);
             Canvas.SetTop(bar2, 250);
             Canvas.SetLeft(bar2, 25);
             canvas.Children.Add(bar2);
@@ -61,7 +64,7 @@ namespace U4DonkeyKong
             bar3.Width = 600;
             bar3.Height = 20;
             bar3.Fill = Brushes.Red;
-            bar3.RenderTransform = new RotateTransform(-2);
+            bar3.RenderTransform = new RotateTransform(-3);
             Canvas.SetTop(bar3, 400);
             Canvas.SetLeft(bar3, 150);
             canvas.Children.Add(bar3);
@@ -70,7 +73,7 @@ namespace U4DonkeyKong
             bar4.Width = 600;
             bar4.Height = 20;
             bar4.Fill = Brushes.Red;
-            bar4.RenderTransform = new RotateTransform(4);
+            bar4.RenderTransform = new RotateTransform(3);
             Canvas.SetTop(bar4, 500);
             Canvas.SetLeft(bar4, 25);
             canvas.Children.Add(bar4);
