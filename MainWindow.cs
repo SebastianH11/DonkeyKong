@@ -23,40 +23,67 @@ namespace Donkey_Kong
     {
         enum GameState {Title, SplashScreen, GameOn, GameOver, WinScreen }
         GameState gameState;
+        Player player;
+        Point mouse_pos = new Point();
 
+        Rectangle player_sprite = new Rectangle();
         DispatcherTimer GameTimer = new DispatcherTimer();
         int score = 0;
         int level = 1;
+        int counter = 0;
+        bool playerisgenerated = false;
         
         public MainWindow()
         {
+            
             InitializeComponent();
+            
             Map map = new Map(canvas, this);
-            gameState = GameState.Title;
+            gameState = GameState.SplashScreen;
             GameTimer.Tick += GameTimer_Tick;
             GameTimer.Interval = new TimeSpan(170000);
             GameTimer.Start();
             map.drawMap();
+            player = new Player(this, canvas);
             
-
         }
 
         private void GameTimer_Tick(object sender, EventArgs e)
         {
+            
+            for (int i = canvas.Children.Count -13; i >= 13; i--)
+            {
+                canvas.Children.RemoveAt(i);
+            }      
             if (gameState == GameState.Title)
             {
                 this.Title = "Title Screen";
             }
             if (gameState == GameState.SplashScreen)
             {
-                //map.generate();
+                
                 this.Title = "SplashScreen";
-                btn_start.Visibility = Visibility.Hidden;
+                counter++;
+                
+                if (playerisgenerated == false)
+                {
+                    player.generate(player_sprite);
+                    playerisgenerated = true;
+                    canvas.Children.Add(player_sprite);
+                }
+                if (playerisgenerated == true)
+                {
+                    player.fall();
+                    player.update(player_sprite);
+                    
+                }
+                
+                
                 
             }
             if (gameState == GameState.GameOn)
             {
-
+                
             }
             if (gameState == GameState.GameOver)
             {
@@ -68,9 +95,13 @@ namespace Donkey_Kong
             }
         }
 
-        private void btn_start_Click(object sender, RoutedEventArgs e)
+        private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            gameState = GameState.SplashScreen;
-        }
+            //Console.WriteLine(".");
+            player.move();
+            player.jump();
+            
+        }       
     }
 }
+
